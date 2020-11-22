@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<map version="0.99b" orientation="orthogonal" width="100" height="100" tilewidth="32" tileheight="32">
+ <tileset name="rumput1" firstgid="1" tilewidth="32" tileheight="32">
+  <image source="surface1.png"/>
+ </tileset>
+ <tileset name="rumput2" firstgid="2" tilewidth="32" tileheight="32">
+  <image source="surface2.png"/>
+ </tileset>
+ <tileset name="rumput3" firstgid="3" tilewidth="32" tileheight="32">
+  <image source="surface3.png"/>
+ </tileset>
+ <tileset name="rumput4" firstgid="4" tilewidth="32" tileheight="32">
+  <image source="surface4.png"/>
+ </tileset>
+ <tileset name="tanah1" firstgid="5" tilewidth="32" tileheight="32">
+  <image source="surface.png"/>
+ </tileset>
+ <tileset name="tanah2" firstgid="9" tilewidth="32" tileheight="32">
+  <image source="trans.png"/>
+ </tileset>
+ <tileset name="jalan1" firstgid="21" tilewidth="32" tileheight="32">
+  <image source="misc.png"/>
+ </tileset>
+ <tileset name="gedung1" firstgid="25" tilewidth="32" tileheight="32">
+  <image source="build.png"/>
+ </tileset>
+ <tileset name="gedung3" firstgid="31" tilewidth="32" tileheight="32">
+  <image source="build3.png"/>
+ </tileset>
+ <tileset name="gedung4" firstgid="37" tilewidth="32" tileheight="32">
+  <image source="build4.png"/>
+ </tileset>
+ <tileset name="gedung5" firstgid="41" tilewidth="32" tileheight="32">
+  <image source="build5.png"/>
+ </tileset>
+ <tileset name="gedung6" firstgid="57" tilewidth="32" tileheight="32">
+  <image source="build6.png"/>
+ </tileset>
+ <tileset name="gedung7" firstgid="65" tilewidth="32" tileheight="32">
+  <image source="build7.png"/>
+ </tileset>
+ <tileset name="gedung8" firstgid="73" tilewidth="32" tileheight="32">
+  <image source="build8.png"/>
+ </tileset>
+ <tileset name="gedung9" firstgid="79" tilewidth="32" tileheight="32">
+  <image source="build9.png"/>
+ </tileset>
+ <tileset name="gedung10" firstgid="85" tilewidth="32" tileheight="32">
+  <image source="build10.png"/>
+ </tileset>
+ <tileset name="gedung11" firstgid="86" tilewidth="32" tileheight="32">
+  <image source="build11.png"/>
+ </tileset>
+ <tileset name="gedung12" firstgid="87" tilewidth="32" tileheight="32">
+  <image source="build12.png"/>
+ </tileset>
+ <tileset name="gedung13" firstgid="88" tilewidth="32" tileheight="32">
+  <image source="bangunanH.png"/>
+ </tileset>
+ <tileset name="gedung14" firstgid="96" tilewidth="32" tileheight="32">
+  <image source="bangunanV.png"/>
+ </tileset>
+ <tileset name="pagar1" firstgid="104" tilewidth="32" tileheight="32">
+  <image source="fence.png"/>
+ </tileset>
+ <tileset name="pagar2" firstgid="105" tilewidth="32" tileheight="32">
+  <image source="fence2.png"/>
+ </tileset>
+ <tileset name="pagar3" firstgid="106" tilewidth="32" tileheight="32">
+  <image source="fenceP.png"/>
+ </tileset>
+ <tileset name="blok_rumput" firstgid="110" tilewidth="32" tileheight="32">
+  <image source="surface2.png"/>
+  <tile id="0">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset name="jeep" firstgid="111" tilewidth="32" tileheight="32">
+  <image source="jeep.png"/>
+ </tileset>
+ <tileset name="shadow1" firstgid="115" tilewidth="32" tileheight="32">
+  <image source="shadowD.png"/>
+ </tileset>
+ <tileset name="shadow2" firstgid="116" tilewidth="32" tileheight="32">
+  <image source="shadowU.png"/>
+ </tileset>
+ <tileset name="shadow3" firstgid="117" tilewidth="32" tileheight="32">
+  <image source="shadowP1.png"/>
+ </tileset>
+ <tileset name="shadow4" firstgid="118" tilewidth="32" tileheight="32">
+  <image source="shadowP2.png"/>
+ </tileset>
+ <tileset name="shadow5" firstgid="119" tilewidth="32" tileheight="32">
+  <image source="shadowP3.png"/>
+ </tileset>
+ <tileset name="shadow6" firstgid="120" tilewidth="32" tileheight="32">
+  <image source="shadowP4.png"/>
+ </tileset>
+ <tileset name="shadow7" firstgid="121" tilewidth="32" tileheight="32">
+  <image source="shadowR.png"/>
+ </tileset>
+ <tileset name="shadow8" firstgid="122" tilewidth="32" tileheight="32">
+  <image source="shadowL.png"/>
+ </tileset>
+ <layer name="rumput" width="100" height="100">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAAN2c247bSAxE7cl+7/7/4yLAGBA6vJwqUp51Hhqxpb6QPEVStpN8PR6Pr2M8v0d07W8fxN8zXlncru+j1+re1Zn/53G3vVnMiK5Pm7r312ufyCPzr7Jd9YvycGpOFftPY+HE1j1jyqKaE3H7NA5KHM9rv77HE/65zSPS08mh8+NvGL/MdXfziFg49WqTmeqbGisyn9r27/fIXj+P69052Rxin8psI/6ORh121F6Hx6n/SUw282IrZuq8rgZE1159Rs2P87Wi74nfNGemeUBju2H71+PPfn8y2axXqs2Ovw6LKQO6r+Lfi8ddOp7ki3veZG+VB7WV6Ol8FpvGhvSPaby2eFRxUxmotkbDYfFuHtOafEfcur0mOUXidO0RGyw2edzNwtGCy/mMz4RHZNOUyfR5gsSQ7Nud0fmiPKdu5IfDYoMHiVXHRD0j8qHLX4dHlC80P7dYnPc2tNsxcc5QYpDtm51x7emkv095KHs6+aH2k8ln3swX9Ywrm+vnjix2tF5leTZlTLVO6ujkjOqcrH6RXpvdn/DI9ngXC3I90012TT1PWZPF8Fqjshgp+fFuFtU+hEd2b+Mch0nWM2gMCYvOx+yMKcvKVocHjb1qV+W7E4OOxd35QXyM3is8VFun+1Txi56N7+Ix4VPlN2WlxHiSB4rGFB6EBa1Xju0u7y43Ivud+H8SD0U/ag/qfFJjptSZu3l0/H+iXrn1vNI70f+GLTTuavwoC6JfR7vRva2cU2M53Sfa7yf6hxIbspdynpsPqmbceGRzrzzoedn5Uy0puUZyffIdcra/27MyrVMeTr3KarfLoeJN9H8HD0U/JEfovXfyUGzKXp/2THlkmlb4uL31J3hsxio7T/ltQtHC9b3yfTuptxv1StVRZq/Co+Jf6Y7aR+e4v6spPFQWpNYSPyiPLP6nD0Svk/5BbZ/ymDChfWxarypGtJZ0Z5CatZ0f2b0JD+Ucd3S1h/aM65zTfqIt5brLY8rin0Uejo5erxXtTnQS5SZhdnf/+D26vyvsaIfsF82hsVHn3pkfWzyi34ad3Og03+kx843Uq2jvzG7KIlub6fasn9MccWqVkg+KFtV+rtpA5mdMO31u9hAnP7Z5VH3Cfb6a5sbpY/XvbCc87vi79JnGqn4xzY9NFh2Trn9MmFx5ZPVK1Xd1nzCpagTNxSgWZF51Xrdf1j/UHFF40NpJ476RH1nNpRwqLortFQ/KxP13WCqnMze6+W4/73Tg+Nj1FhqLzXql9AvVd4fH87HTPyJ+XY5f40ZjpdSp195dvVLOV8e5h1qvJjnh1KrIZ9I/VDZqvJ28ce5365z1hB/NqYpHlG8THhMOTmyuteisS9Xzrmq/woLkUPV9msKg0391rvNdeKc1um/3fWLHR+1RRLfZfSdHqLYmn9UoG5eH8tp5hnNqe7TunTzOekM5uPlBc+70c/IZp6sbFY/t3qHWqyp/MybVdVpfIx6uH1s8FD6ERRdHmsddPKO5bp+ouNI9SJyy+nkXj6w2qrFRYtjFkfDc4Eq/xyD9Y8pDrWdbPJTzlTrVrals6H67i85U80L1d4uDm1sqsw2tqf2jqlkuC8pJYVr1ka6eEA1S3Ss5T2N2Nw+iLVWzSn0/7Ttfu/nh1N/z7Or/UZzyUPWj1k9V41XMKy2QvKD3VZ11ft3BQs1xxdZoLeVB8iLKNTfuWX7cxcPVj8u40/tGjXLtq+ae86vv20kMlLhu1Sd1zpSBow13fcej091UJ67dTmy3/Juuq+ZX/Tx7vaFRGqd35RTVhdo/XNsoD0U7m/Oma6r4TuJ21/gpHtf9yHOCy4LoWsnhzj712ec1lN8YNsfGbxPbZxAep06d3w2qc1Qe0+eSCQ/aT57Heho38sx4vt7+nVP9PSryO9IP1YGiXaWGudpVNejy2KrHWR3N/lR4VP5le06Yn+epg/A4dUH2zHKjY0C4KHpTdUP5dNei3HfsnT4zRBqsYqz46fJQdJPFpFpf2afWCVdXDg+ljqnxdZ/lqE1OPm/z6M7J1ma9xrGN5lP1HKDEwMlbhRN53lL1MdGior9pv5hwUfmQfqJqUfF7Ow+VfkfXqvXD6SVqbql1gthK6pT7/K/kdsac8HgeI/OLXFM4Zj4rz1tUS+7nY0evSj65vYXYpLKhfDMGVS8/93E+x7j1UPW76yluXClXlQd9X51/12fXrrYovZ3qbLM/dxxp/J3+RmxS1zq1hdQ0JSbOcPsC7WMqC1WTkQ8krtXnT4UvjU8X48x+JbcnOUHye+Jnx/1aDyf52vnT7aXqutOeE4+spqs6mPiYfb995o3yPup1W++fN5+f7e/o36njWb16F4+nOJ/s/xT2P++fPDJNKzlCa4ZTW8igtYP45tY/olHSw6P+7PRWNwYba6ZzXZ2Q+jytJ5SjssbRpNrrN+Z3Njwff9pL1pyvo+eCSd2o9t2Il8pjqr0NnWZ5MKlfih1qzjs5Vemg0ukk1ybMVX+In9Wf9EwnrxX/p/1W8aE7P/Oz8p0yUrgocSTxIcyVmk3qRxU7EkNVU5VOqz5D84Nyn+Sxq1MSQxIL1Ve6JhsOh2pvJ15Eu1V8MgaUzSYPmlcVj2q4eevmdZcLqj2VbWTPKk6kbhIGam6QMxwdZXY4/mf7Z++z2Cs+EE1UPkbvt0bGstN7pVlSOyb1wtHdJ4z/AJDZneBAnAAA
+  </data>
+ </layer>
+ <layer name="tanah" width="100" height="100">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAAO2di26cMBBFUaWm6TZtmoea/P+XllWxRHf9wngehnOlkUAbeTCDfT1zMZkmAAAAAGji52zfG+yXxcWeAE+z/ZntY7Ha44vFxZ4A13h8zvZtsevxw2K5Y+IhgxCPr4uF+16KDfGQQWp8hOPHxW6PiYcMUuMjjAPioQv43Bd+z/YjYq/Tv3Hwkvj92eJiT4Z1LvI26cxLGvnPqD6uc9fDpLuO0pgvR/VhFY+W/Od9qn8G3xz7KMXjcdJdR7XmPx8bzauP3P1dc/trxd/3QGv+k1pn5NYmHn3k7q8Fn2vkP6P6gM99+bCIh0b+E/MR2g/9jPnZ62NvPyz4PHctkv5D+9LP3Z5+WPB5CsTDhs9TIB42/JG7FuJBPKT8tMYDPpfxA5/Xte85Hkfl81gtPPQvVzvs8U4T/BFvy0oDJR7ptizeaRqNz1O6WphPUhrElrlE450miX5Y1ds1an29a+Ea/bCst2trdzXHHvRBK71WWrtreXat9UFP+rmGdld6dq31QU/6uYZ215PPJfoBn8PnGvqgxhiU0gePmg+Sn+8D+flx6+29+PzLYi2+qbfft2Wx54h6e7qtvXy+dWysfcMf/7cFn+8DfA6fe4sHfF7mD831FXy+PR6l+IzGH1r6oDSfS/TjyPsNpPlcar+BVb1d+l5p1dt79sNyv9rWe9VDSy3xeYuPnjH3pJ+X7lUPLbXE5y0+euuDXvTz0r3aqqW2zO0tei37B8vouV8ttd49Cp9bfT+l5X3qXP4h0Y+j5ue59vfGo9YP+Xld+9Lz8mj5ee5aiAfxkPJDvb2ufc/xgM/l/MDnde17jgf8IeeHeNS17z0e8LmMn1H4XEMf1NjvLNEPq3r7iN8K0/DhaX+UhD44mg9P+oeEPujRh7d6u6Y+6NHHKPp5b33Qqw+P+vmIXKvhw4I/UrpayXp8+9O7D0/5OfCVn58Vt5xxG48e+TGoh+XeIXAPy71D4B6We4fAPSz3AoN7aHzbI4ZYfZo1gh2fx/wy5uzfn239Pt7ZTLp+FZsnt9ZTz2aSc0hsfISxeB2bgateOO86L6UQGx+X1W/hei6cqyDH52tOe+ZcBbF1BP+jGAAAAAAAAAAAAEfFXxfzIkhAnAAA
+  </data>
+ </layer>
+ <layer name="gedung" width="100" height="100">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAAO3dS07sMBAF0GyDB7wZn23wZxnhv/8dYIQEGXQPTCflinOOVFK11JLbg+jGsjsZBgAAyGUs9VTRs6znUi8VPct6LfVW0bOs91IfFT0ATB2V+tf6R/DjuNRJg3GvSl1X9FsZ47TU/wN+z1/dlLqt6Lc8RoS7UvcV/ZbHiPBQ6rGi38oY8jyXVnnObq3yHKCWPM9Fnuciz4G1kOe59Jzn4/B7Xums1PmOfvqdDHrO8+l5pYtSlzt6Z5riTM8r7bs+nGn6FrF3Nz2vtO/6OPRM09zzaJXnveyrzT2PVnkesa82Dsvn+dzzaJXnEXt3EXkeMY9eyPNcIvJ8btbnuVifW59HsT7PRZ7nIs85lDyX51HkeS7yPBd5zqHkuTz/ErE/GJHnEfOIELE/GJHnvexzRuwPRuT53PNolee97KvNPY+e83yNel6fA32xPs9Fnuciz4G1kOe5yPNc5DmwFq3yfI3P/owYo1We9/Lsz7nHaJXnvTz70/NFtzcG7Vif52J9nov1OZDdOHj/YCbeP5iL9w/m4v2DkM84uEfIxD1CLvvuEab/WfI5zr57hOl/lnwGAAAAgH59AgRaF79AnAAA
+  </data>
+ </layer>
+ <layer name="bayangan" width="100" height="100">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAAO3RSQ3AQBDAsOHcu+i7ZeFHLAVBjpnZi+hcPRPFO/2Q9MPSD0s/LP2w9MPSD0s/LP2w9MPSD0s/LP2w9MPSD0s/LP2w9MPSD0s/LP2w9MPSD0s/LP2w9MPSD0s/LP2w9MPSD0s/LP2w9MPSD0s/LP2w9MPSD0s/LP2w9MPSD0s/LP2w9MPSD0s/LP2w9MPSD0s/LP2w9MPSD0s/LP2w9MPSD0s/LP2w9MPSD0s/LP2w9MPSD0s/LP2w9MPSD0s/LP2w9MPSD0s/LP2w9MPSD0s/LP2w9MPSD0s/LP2w9MPSD0s/LP2w9MPSD0s/LP2w9MPSD0s/LP2w/D/u1VZE1+oDHnkHm0CcAAA=
+  </data>
+ </layer>
+</map>

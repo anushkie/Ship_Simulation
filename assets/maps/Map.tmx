@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="32" height="32" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="Cliffs1" tilewidth="32" tileheight="32">
+  <image source="Cliffs1.png" width="256" height="1600"/>
+ </tileset>
+ <tileset firstgid="401" name="07-irregular-tiles" tilewidth="32" tileheight="32">
+  <image source="07-irregular-tiles.png" width="512" height="1024"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJztwwEJAAAMBKFr+f2brMdQcNVUVVXV1w9rTVwQ
+  </data>
+ </layer>
+ <layer name="Collision" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJzllrsNwjAQhk/JLrABbJFQmVRAl3RkR0aghQI2gAlwJJ+wLn7bOQp+6eTE2P5O3MMBcKuXdlzIhoDzTx7/ciSkdQue/4/8RlorbfcjvlAjPdfkFyd/mt+TeU7+Aeb1xMm3rc3hY0x1Gxn5Qnt+VADP6vvOzX9J9juQv6oB1rWbH1LHwvGbi7+R7K2Hb6oX25pYvr4/hn+TdtfesaaOxBef36l8l3RfQu/NkvwQYd5hrXDzMe+wVjj4jRppn8JedQZzjZn6dYqEMhO/VWtsPpQQ8n0q4cOlms9N7Om/HBh8uFr4+kiFcUDuUvexLwYdGXOFvZKDb/oOoN8DPj7GPoWPZ5vuTJwb6SaDukw+7VlNILcUX+9Zsexe7cvho2LZoHGnPLDlki/HYmJNlcK1+RGjD4x9ZqI=
+  </data>
+ </layer>
+ <layer name="WalkBehind" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIKhC/SYGRj0gdiAmTj15xkZGC4wUs9+O6C99kDsQKT994F2P6Ci/SMFXAHiqwPtiCEOeIBplJeEvEJtIAO0V5aEvDJUAR/Qf/wD6Ec5oN3yA2T/QPgdlq5BYCD8DkvXgwWMlpWjYBSMAkIAAJxKCg8=
+  </data>
+ </layer>
+ <objectgroup name="Collision2" width="32" height="32" opacity="0.99">
+  <object x="570" y="316" width="74" height="57">
+   <ellipse/>
+  </object>
+  <object x="845" y="163" width="70" height="85"/>
+  <object x="214" y="384" width="51" height="253"/>
+  <object x="269" y="392" width="14" height="245"/>
+  <object x="195" y="394" width="17" height="243"/>
+  <object x="358" y="425" width="55" height="49"/>
+  <object x="703" y="665" width="22" height="16"/>
+  <object x="736" y="599" width="23" height="17"/>
+  <object x="884" y="524" width="36" height="20"/>
+  <object x="777" y="586" width="74" height="213"/>
+  <object x="551" y="806" width="452" height="199"/>
+  <object x="6" y="613" width="128" height="349"/>
+  <object x="4" y="962" width="545" height="58"/>
+  <object x="488" y="302" width="245" height="163"/>
+  <object x="582" y="470" width="147" height="34"/>
+  <object x="653" y="137" width="78" height="159"/>
+  <object x="926" y="297" width="59" height="15"/>
+  <object x="954" y="319" width="7" height="16"/>
+  <object x="946" y="368" width="37" height="20"/>
+  <object x="1" y="2" width="279" height="51"/>
+  <object x="286" y="3" width="720" height="22"/>
+  <object x="1" y="57" width="27" height="554"/>
+  <object x="859" y="581" width="149" height="31"/>
+  <object x="495" y="291" width="159" height="9"/>
+  <object x="644" y="139" width="10" height="152"/>
+  <object x="708" y="743" width="57" height="51"/>
+ </objectgroup>
+</map>
