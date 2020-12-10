@@ -18,7 +18,6 @@ import com.uea.battle.tanks.core.tank.Ship;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class BattleTankScreen implements Screen {
 
     private TiledMap tiledMap;
@@ -47,7 +46,7 @@ public class BattleTankScreen implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, width, height);
         camera.update();
-        tiledMap = new TmxMapLoader().load("maps//map1.tmx");
+        tiledMap = new TmxMapLoader().load("maps//riverMap.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 
         spriteBatch = new SpriteBatch();
