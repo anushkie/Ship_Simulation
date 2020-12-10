@@ -97,4 +97,14 @@ public class PlayerShip implements Ship {
     public void update(OrthographicCamera camera, float delta) {
 
     }
+
+    @Override
+    public float getX() {
+        return sprite.getX();
+    }
+
+    @Override
+    public float getY() {
+        return sprite.getY();
+    }
 }

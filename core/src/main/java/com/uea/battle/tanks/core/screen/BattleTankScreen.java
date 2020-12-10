@@ -50,7 +50,7 @@ public class BattleTankScreen implements Screen {
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 
         spriteBatch = new SpriteBatch();
-        texture = new Texture(Gdx.files.internal("ui//Tank-Turret.png"));
+        texture = new Texture(Gdx.files.internal("ui//shipSmall.png"));
         playerShip = new PlayerShip(new Sprite(texture));
         for (int i = 0; i <20 ; i++) {
             enemyShip.add(new EnemyShip(new Sprite(texture)));
@@ -68,6 +68,7 @@ public class BattleTankScreen implements Screen {
         for (Ship ship : enemyShip) {
             ship.update(camera, delta);
         }
+        camera.position.set(playerShip.getX(), playerShip.getY(),0);
         camera.update();
         tiledMapRenderer.setView(camera);
 

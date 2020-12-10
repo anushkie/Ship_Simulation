@@ -10,4 +10,7 @@ public interface Ship {
     void move(Direction direction);
 
     void update(OrthographicCamera camera, float delta);
+
+    float getX();
+    float getY();
 }
