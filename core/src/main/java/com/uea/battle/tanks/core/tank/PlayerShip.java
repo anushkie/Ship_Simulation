@@ -24,6 +24,12 @@ public class PlayerShip implements Ship {
         sprite.draw(spriteBatch);
     }
 
+    //This method calls "getVertices" which produces a float array of length 3, with x, y and angle values
+    //Still unsure if we should make it a part of the object to be initialised in the constructor?
+    public float[] getPosition(Sprite sprite){
+        return sprite.getVertices();
+    }
+
     @Override
     public void move(Direction direction) {
         switch (direction) {
@@ -92,6 +98,17 @@ public class PlayerShip implements Ship {
 
     protected float calculateDistanceY(float velocity, float angle) {
         return velocity * MathUtils.sin(MathUtils.degreesToRadians * angle);
+    }
+
+    //Th
+    public float[] distance(Sprite player, Sprite enemyShip) {
+        float[] dis = new float[3];
+        float[] playerPos = player.getVertices();
+        float[] enemyPos = enemyShip.getVertices();
+        dis[0] = (playerPos[0] = enemyPos[0]);
+        dis[1] = (playerPos[1] = enemyPos[1]);
+        dis[2] = (playerPos[2] = enemyPos[2]);
+        return dis;
     }
 
 
