@@ -100,7 +100,7 @@ public class PlayerShip implements Ship {
         return velocity * MathUtils.sin(MathUtils.degreesToRadians * angle);
     }
 
-    //Th
+    
     public float[] distance(Sprite player, Sprite enemyShip) {
         float[] dis = new float[3];
         float[] playerPos = player.getVertices();
