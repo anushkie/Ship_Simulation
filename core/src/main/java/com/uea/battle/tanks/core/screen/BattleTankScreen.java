@@ -10,6 +10,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.uea.battle.tanks.core.map.MapLoader;
 import com.uea.battle.tanks.core.tank.Direction;
 import com.uea.battle.tanks.core.tank.EnemyShip;
 import com.uea.battle.tanks.core.tank.PlayerShip;
@@ -34,6 +35,8 @@ public class BattleTankScreen implements Screen {
 
     private Texture texture;
 
+    private final MapLoader mapManager = new MapLoader();
+
     public BattleTankScreen() {
         enemyShip = new ArrayList<>();
     }
@@ -46,12 +49,13 @@ public class BattleTankScreen implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, width, height);
         camera.update();
-        tiledMap = new TmxMapLoader().load("maps//riverMap.tmx");
+        tiledMap = new TmxMapLoader().load("maps/route223.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
+        mapManager.setUpMap(tiledMap);
 
         spriteBatch = new SpriteBatch();
-        texture = new Texture(Gdx.files.internal("ui//shipSmall.png"));
-        playerShip = new PlayerShip(new Sprite(texture));
+        texture = new Texture(Gdx.files.internal("ui/tank.png"));
+        playerShip = new PlayerShip(new Sprite(texture), mapManager);
         for (int i = 0; i <20 ; i++) {
             enemyShip.add(new EnemyShip(new Sprite(texture)));
         }

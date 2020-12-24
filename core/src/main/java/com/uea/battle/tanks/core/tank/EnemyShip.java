@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Polygon;
 
 public class EnemyShip implements Ship {
 
@@ -30,6 +31,10 @@ public class EnemyShip implements Ship {
 
     }
 
+    @Override
+    public Polygon getBoundingPolygon() {
+        return null;
+    }
 
     @Override
     public float getX() {

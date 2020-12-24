@@ -2,6 +2,7 @@ package com.uea.battle.tanks.core.tank;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Polygon;
 
 public interface Ship {
 
@@ -13,4 +14,6 @@ public interface Ship {
 
     float getX();
     float getY();
+
+    Polygon getBoundingPolygon();
 }
