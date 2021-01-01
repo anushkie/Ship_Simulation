@@ -20,7 +20,10 @@ public class PlayerShip implements Ship {
     }
 
     @Override
+    //Attempting to get the position of the docks at the bottom of the screen
+    //Will then use the commented line to generate them in this area
     public void render(SpriteBatch spriteBatch) {
+//        sprite.draw(spriteBatch, position);
         sprite.draw(spriteBatch);
     }
 
