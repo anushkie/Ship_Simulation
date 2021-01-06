@@ -7,7 +7,7 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
-import com.uea.battle.tanks.core.tank.PlayerShip;
+import com.uea.battle.tanks.core.ship.PlayerShip;
 
 import java.util.ArrayList;
 import java.util.List;

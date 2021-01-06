@@ -1,4 +1,4 @@
-package com.uea.battle.tanks.core.tank;
+package com.uea.battle.tanks.core.ship;
 
 public enum Direction {
     UP,

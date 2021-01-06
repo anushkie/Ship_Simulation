@@ -1,10 +1,12 @@
-package com.uea.battle.tanks.core.tank;
+package com.uea.battle.tanks.core.ship;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
+import com.uea.battle.tanks.core.screen.wind.Environment;
 
 public class EnemyShip implements Ship {
 
@@ -16,18 +18,18 @@ public class EnemyShip implements Ship {
     }
 
     @Override
-    public void render(SpriteBatch spriteBatch) {
+    public void render(SpriteBatch spriteBatch, ShapeRenderer shapeRenderer) {
         sprite.draw(spriteBatch);
     }
 
 
     @Override
-    public void move(Direction direction) {
+    public void move(Environment environment) {
 
     }
 
     @Override
-    public void update(OrthographicCamera camera, float delta) {
+    public void update(OrthographicCamera camera, float delta, Environment environment) {
 
     }
 
@@ -44,5 +46,15 @@ public class EnemyShip implements Ship {
     @Override
     public float getY() {
         return sprite.getY();
+    }
+
+    @Override
+    public float getAngle() {
+        return sprite.getRotation();
+    }
+
+    @Override
+    public float getVelocity() {
+        return 1;
     }
 }
