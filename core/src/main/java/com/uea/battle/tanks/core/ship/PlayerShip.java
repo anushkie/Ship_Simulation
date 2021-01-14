@@ -41,9 +41,9 @@ public class PlayerShip implements Ship {
     private final Polygon polygon;
     private final List<Runnable> spritePositionChangeListeners = new ArrayList<>();
     Vector boat, boatDirection, rudder, sail, wind;
-    float lateralResistance = 0.025f;
+    float lateralResistance = 0.0f;
     double simulationSpeed = 50;
-    double stepAngleChange = 0.0872664626;
+    double stepAngleChangeRadian = 0.0872664626;
     double rudderForce = 0.01;
     double prevBoatDirection;
 
@@ -97,12 +97,15 @@ public class PlayerShip implements Ship {
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
             if (rudder.getAngle() > 0.75 * Math.PI)
-                rudder.setAngle(rudder.getAngle() - stepAngleChange);
+                rudder.setAngle(rudder.getAngle() - stepAngleChangeRadian);
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
             if (rudder.getAngle() < 1.25 * Math.PI)
-                rudder.setAngle(rudder.getAngle() + stepAngleChange);
+                rudder.setAngle(rudder.getAngle() + stepAngleChangeRadian);
 
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+            rudder.setAngle(Math.PI);
         }
     }
 
@@ -133,10 +136,8 @@ public class PlayerShip implements Ship {
         Vector simSpeedMultipliedByDeltaIntoVPlusD = Vector.multiply(simulationSpeed, deltaIntoVPlusD);
         boat = Vector.plus(boat, simSpeedMultipliedByDeltaIntoVPlusD);
         v.calcLength();
-        boatDirection.setAngle(boatDirection.getAngle() + Vector.signCos(f, boatDirection) *
-                rudderForce * v.getLength() * rudder.y / rudderLength);
+        boatDirection.setAngle(boatDirection.getAngle() + Vector.signCos(f, boatDirection) * rudderForce * v.getLength() * rudder.y / rudderLength);
         sail.setAngle(sail.getAngle() + boatDirection.getAngle() - prevBoatDirection);
-        prevBoatDirection = boatDirection.getAngle();
 
         boatSprite.setPosition((float) boat.x, (float) boat.y);
         boatSprite.setRotation(boatDirection.getAngleDegree());
@@ -144,20 +145,22 @@ public class PlayerShip implements Ship {
         polygon.setPosition((float) boat.x, (float) boat.y);
         polygon.setRotation(boatDirection.getAngleDegree());
 
-        rudderSprite.setPosition((float) boat.x, (float) boat.y);
-        rudderSprite.setRotation(180 - rudder.getAngleDegree());
+        rudderSprite.setPosition((float) boat.x, (float) boat.y - rudderLength);
+        rudderSprite.setRotation((float) (rudder.getAngleDegree() + boatDirection.getAngleDegree() - MathUtils.radDeg * prevBoatDirection));
 
         sailSprite.setPosition((float) boat.x, (float) boat.y);
-        sailSprite.setRotation(sail.getAngleDegree() - boatDirection.getAngleDegree() - 90);
+        sailSprite.setRotation(sail.getAngleDegree() - boatDirection.getAngleDegree());
 
         spritePositionChangeListeners.forEach(Runnable::run);
 
         windSprite.setPosition((float) boat.x, (float) boat.y);
-        windSprite.setRotation(wind.getAngleDegree() - 180);
+        windSprite.setRotation(wind.getAngleDegree());
 
-        if (MathUtils.random(1000) == 1) {
+        prevBoatDirection = boatDirection.getAngle();
+
+        /*if (MathUtils.random(1000) == 1) {
             wind.setAngle(MathUtils.random(360) * MathUtils.degreesToRadians);
-        }
+        }*/
         environment.setWindRadians((float) wind.getAngle());
     }
 
