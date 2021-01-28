@@ -1,6 +1,6 @@
-package com.uea.battle.tanks.core.physicsold;
+package com.uea.battle.tanks.core.physics;
 
-import static com.uea.battle.tanks.core.physicsold.ShipPhysics.M_PI_4;
+import static com.uea.battle.tanks.core.physics.ShipPhysics.M_PI_4;
 
 public class ShipAttributes {
     /* coordinates of boat */
@@ -13,7 +13,7 @@ public class ShipAttributes {
     float rudder_angle;
     float sheet_length;
 
-    /* is the sail free to move? */
+    /* is the sail free to move */
     int sail_is_free;
 
     /* state variables */
@@ -127,14 +127,14 @@ public class ShipAttributes {
         this.rotational_velocity = rotational_velocity;
     }
 
-    public float getEll() {
+   /* public float getEll() {
         return ell;
     }
 
     public void setEll(float ell) {
         this.ell = ell;
     }
-
+*/
     public float getDrift_coefficient() {
         return drift_coefficient;
     }

@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.MathUtils
-import com.uea.battle.tanks.core.physicsold.ShipPhysics.M_PI_2
+import com.uea.battle.tanks.core.physics.ShipPhysics.M_PI_2
 import com.uea.battle.tanks.core.ui.GameUI
 
 class EnvironmentManager(private val gameUI: GameUI) : Environment {

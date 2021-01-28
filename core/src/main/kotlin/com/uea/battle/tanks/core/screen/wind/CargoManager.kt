@@ -16,20 +16,23 @@ class CargoManager(private val mapHeight: Int, playerShip: PlayerShip, private v
     private val cargosOnMap = ArrayList<Cargo>()
     private var totalCargos = 0
     private var collectedCargos = 0
+    private var cargoWeight = 1000
 
     init {
         for (locationsForCargo in locationsForCargos) {
             cargosOnMap += Cargo(locationsForCargo.first * 32, (mapHeight - 1 - locationsForCargo.second) * 32)
         }
         totalCargos = cargosOnMap.size
-        gameUI.updateCollectedCargoCount(collectedCargos, totalCargos)
+        gameUI.updateCollectedCargoCount(collectedCargos, totalCargos, cargoWeight)
 
         playerShip.registerPositionCallback {
             for (cargo in cargosOnMap) {
-                if (cargo.isColliding(playerShip.boundingPolygon)) {
+
+                if (cargo.isColliding(playerShip.boundingPolygon) && collectedCargos <= 5) {
                     cargo.collected = true
                     collectedCargos++
-                    gameUI.updateCollectedCargoCount(collectedCargos, totalCargos)
+                    cargoWeight += 150
+                    gameUI.updateCollectedCargoCount(collectedCargos, totalCargos, cargoWeight)
                     soundPlayer.playCargoCollectSound()
                 }
             }
@@ -48,7 +51,16 @@ class CargoManager(private val mapHeight: Int, playerShip: PlayerShip, private v
         private val locationsForCargos = setOf(
                 13 to 122,
                 19 to 117,
-                21 to 81
+                21 to 81,
+                21 to 105,
+                28 to 93,
+                12 to 68,
+                26 to 56,
+                8 to 47,
+                19 to 89,
+                12 to 104,
+                29 to 122
+
         )
         private val soundPlayer = SoundPlayer.INSTANCE
     }
@@ -57,7 +69,7 @@ class CargoManager(private val mapHeight: Int, playerShip: PlayerShip, private v
 class Cargo(x: Int, y: Int) {
 
     var collected = false
-    private val sprite = Sprite(Texture("ui/tank.png"))
+    private val sprite = Sprite(Texture("ui/cargo.png"))
     private val boundingPolygon = createBoundingPolygon(x.toFloat(), y.toFloat())
 
     init {

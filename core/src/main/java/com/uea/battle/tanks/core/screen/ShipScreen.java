@@ -65,9 +65,9 @@ public class ShipScreen implements Screen {
         mapManager.setUpMap(tiledMap);
 
         spriteBatch = new SpriteBatch();
-        Texture texture = new Texture(Gdx.files.internal("ui/tank.png"));
+        Texture texture = new Texture(Gdx.files.internal("ui/shipSprite.png"));
 
-        playerShip = new PlayerShip(new Sprite(texture), mapManager);
+        playerShip = new PlayerShip(new Sprite(texture), mapManager, stage);
 
         mapWidth = tiledMap.getProperties().get(WIDTH, Integer.class) * 32;
         mapHeight = tiledMap.getProperties().get(HEIGHT, Integer.class) * 32;

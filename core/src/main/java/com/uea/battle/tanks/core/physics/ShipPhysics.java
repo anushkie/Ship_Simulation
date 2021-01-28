@@ -1,4 +1,4 @@
-package com.uea.battle.tanks.core.physicsold;
+package com.uea.battle.tanks.core.physics;
 
 import com.uea.battle.tanks.core.screen.wind.Environment;
 
@@ -12,29 +12,29 @@ public class ShipPhysics {
     public static final float R_EARTH = 63.78000F;
 
     static void sailing_physics_update(ShipAttributes boat, Environment wind, float dt) {
-        if (sail_is_bounds(boat)) {
+        if (isSailBounds(boat)) {
             boat.setSheet_length(boat.getSheet_length() + dt * boat.getSail_is_free());
         }
 
-        if (mainsheet_is_tight(boat, wind)) {
-            boat.setSail_angle((float) Math.atan(Math.tan(apparent_wind_direction(boat, wind))));
+        if (isMainsheetTight(boat, wind)) {
+            boat.setSail_angle((float) Math.atan(Math.tan(calculateWindDirection(boat, wind))));
 
             if (Math.abs(boat.getSail_angle()) != 0) {
                 boat.setSheet_length(Math.abs(boat.getSail_angle()));
             }
         } else {
-            boat.setSail_angle(sign_of(sin(-apparent_wind_direction(boat, wind))) * boat.getSheet_length());
+            boat.setSail_angle(signOf(sin(-calculateWindDirection(boat, wind))) * boat.getSheet_length());
         }
 
         //longitude = x
-        boat.setLongitude(boat.getLongitude() + ((delta_x(boat, wind) / R_EARTH) * (180 / M_PI) * dt));
+        boat.setLongitude(boat.getLongitude() + ((deltaX(boat, wind) / R_EARTH) * (180 / M_PI) * dt));
         //latitude = y
         boat.setLatitude(boat.getLatitude() +
-                ((delta_y(boat, wind) / R_EARTH) * ((180 / M_PI) / cos(boat.getLatitude() * M_PI / 180)) * dt));
+                ((deltaY(boat, wind) / R_EARTH) * ((180 / M_PI) / cos(boat.getLatitude() * M_PI / 180)) * dt));
 
         //set rotational velocity
-        boat.setRotational_velocity(boat.getRotational_velocity() + delta_rotational_velocity(boat, wind) * dt);
-        boat.setVelocity(boat.getVelocity() + delta_velocity(boat, wind) * dt);
+        boat.setRotational_velocity(boat.getRotational_velocity() + deltaRotationalVelocity(boat, wind) * dt);
+        boat.setVelocity(boat.getVelocity() + deltaVelocity(boat, wind) * dt);
         boat.setAngle(boat.getAngle() + boat.getRotational_velocity() * dt);
 
         //keep angle between 0 and 2*pi
@@ -46,7 +46,7 @@ public class ShipPhysics {
         boat.setAngle(boat.getAngle() % (M_PI * 2));
     }
 
-    static float sign_of(float a) {
+    static float signOf(float a) {
         if (a <= 0) {
             return -1;
         } else {
@@ -54,41 +54,41 @@ public class ShipPhysics {
         }
     }
 
-    static float apparent_wind_x(ShipAttributes boat, Environment wind) {
-        return wind.getWindVelocity() * cos(wind.getWindRadians() - boat.getAngle()) -
-                boat.getVelocity();
+    static float calculateWindX(ShipAttributes ship, Environment wind) {
+        return wind.getWindVelocity() * cos(wind.getWindRadians() - ship.getAngle()) -
+                ship.getVelocity();
     }
 
-    static float apparent_wind_y(ShipAttributes boat, Environment wind) {
-        return wind.getWindVelocity() * sin(wind.getWindRadians() - boat.getAngle());
+    static float calculateWindY(ShipAttributes ship, Environment wind) {
+        return wind.getWindVelocity() * sin(wind.getWindRadians() - ship.getAngle());
     }
 
-    static float apparent_wind_direction(ShipAttributes boat, Environment wind) {
-        return (float) Math.atan2(apparent_wind_y(boat, wind), apparent_wind_x(boat, wind));
+    static float calculateWindDirection(ShipAttributes ship, Environment wind) {
+        return (float) Math.atan2(calculateWindY(ship, wind), calculateWindX(ship, wind));
     }
 
-    static float apparent_wind_speed(ShipAttributes boat, Environment wind) {
-        return (float) Math.sqrt(Math.pow(apparent_wind_x(boat, wind), 2) + Math.pow(apparent_wind_y(boat, wind), 2));
+    static float calculateWindSpeed(ShipAttributes boat, Environment wind) {
+        return (float) Math.sqrt(Math.pow(calculateWindX(boat, wind), 2) + Math.pow(calculateWindY(boat, wind), 2));
     }
 
-    static boolean mainsheet_is_tight(ShipAttributes boat, Environment wind) {
-        if (cos(apparent_wind_direction(boat, wind)) + cos(boat.getSheet_length()) < 0) {
+    static boolean isMainsheetTight(ShipAttributes boat, Environment wind) {
+        if (cos(calculateWindDirection(boat, wind)) + cos(boat.getSheet_length()) < 0) {
             return true;
         } else {
             return false;
         }
     }
 
-    static float force_on_rudder(ShipAttributes boat, Environment wind) {
+    static float forceOnRudder(ShipAttributes boat, Environment wind) {
         return boat.getRudder_lift() * boat.getVelocity() * sin(boat.getRudder_angle());
     }
 
-    static float force_on_sail(ShipAttributes boat, Environment wind) {
-        return boat.getSail_lift() * apparent_wind_speed(boat, wind) * sin(
-                boat.getSail_angle() - apparent_wind_direction(boat, wind));
+    static float forceOnSail(ShipAttributes boat, Environment wind) {
+        return boat.getSail_lift() * calculateWindSpeed(boat, wind) * sin(
+                boat.getSail_angle() - calculateWindDirection(boat, wind));
     }
 
-    static boolean sail_is_bounds(ShipAttributes boat) {
+    static boolean isSailBounds(ShipAttributes boat) {
         if (boat.getSheet_length() > -M_PI_2 && boat.getSheet_length() < M_PI_2) {
             return true;
         } else {
@@ -96,7 +96,7 @@ public class ShipPhysics {
         }
     }
 
-    static float delta_y(ShipAttributes boat, Environment wind) {
+    static float deltaY(ShipAttributes boat, Environment wind) {
         return boat.getVelocity()
                 * cos(boat.getAngle())
                 + boat.getDrift_coefficient()
@@ -104,7 +104,7 @@ public class ShipPhysics {
                 * cos(wind.getWindRadians());
     }
 
-    static float delta_x(ShipAttributes boat, Environment wind) {
+    static float deltaX(ShipAttributes boat, Environment wind) {
         return boat.getVelocity()
                 * sin(boat.getAngle())
                 + boat.getDrift_coefficient()
@@ -112,25 +112,25 @@ public class ShipPhysics {
                 * sin(wind.getWindRadians());
     }
 
-    static float delta_rotational_velocity(ShipAttributes boat, Environment wind) {
+    static float deltaRotationalVelocity(ShipAttributes boat, Environment wind) {
         return ((boat.getSail_center_of_effort()
                 - boat.getMast_distance()
                 * cos(boat.getSail_angle()))
-                * force_on_sail(boat, wind)
+                * forceOnSail(boat, wind)
                 - boat.getRudder_distance()
                 * cos(boat.getRudder_angle())
-                * force_on_rudder(boat, wind)
+                * forceOnRudder(boat, wind)
                 - boat.getAngular_friction()
                 * boat.getRotational_velocity()
                 * boat.getVelocity())
                 / boat.getInertia();
     }
 
-    static float delta_velocity(ShipAttributes boat, Environment wind) {
+    static float deltaVelocity(ShipAttributes boat, Environment wind) {
         return (sin(boat.getSail_angle())
-                * force_on_sail(boat, wind)
+                * forceOnSail(boat, wind)
                 - sin(boat.getRudder_angle())
-                * force_on_rudder(boat, wind)
+                * forceOnRudder(boat, wind)
                 - boat.getTangential_friction()
                 * boat.getVelocity()
                 * boat.getVelocity())

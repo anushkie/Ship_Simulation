@@ -10,8 +10,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.kotcrab.vis.ui.util.dialog.Dialogs;
+import com.kotcrab.vis.ui.util.dialog.OptionDialogListener;
 import com.uea.battle.tanks.core.map.MapLoader;
 import com.uea.battle.tanks.core.screen.wind.Environment;
+import com.uea.battle.tanks.core.ui.GameUI;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,23 +44,26 @@ public class PlayerShip implements Ship {
     private final MapLoader mapManager;
     private final Polygon polygon;
     private final List<Runnable> spritePositionChangeListeners = new ArrayList<>();
+    private Stage stage;
+    private GameUI gameUI;
     Vector boat, boatDirection, rudder, sail, wind;
     float lateralResistance = 0.0f;
     double simulationSpeed = 50;
     double stepAngleChangeRadian = 0.0872664626;
     double rudderForce = 0.01;
     double prevBoatDirection;
+    int countCollided = 1;
 
-    public PlayerShip(Sprite boatSprite, MapLoader mapManager) {
+    public PlayerShip(Sprite boatSprite, MapLoader mapManager, Stage stage) {
         this.boatSprite = boatSprite;
-        this.rudderSprite = new Sprite(new Texture("ui/Tank-Turret.png"));
-        this.sailSprite = new Sprite(new Texture("ui/Tank-Turret.png"));
+        this.rudderSprite = new Sprite(new Texture("ui/rudder.png"));
+        this.sailSprite = new Sprite(new Texture("ui/ship_sail.png"));
         this.windSprite = new Sprite(new Texture("ui/Tank-Turret.png"));
-        this.boatSprite.setPosition(640, 640);
-        this.rudderSprite.setPosition(640, 640);
-        this.sailSprite.setPosition(640, 640);
-        this.windSprite.setPosition(640, 640);
-
+        this.boatSprite.setPosition(0, 0);
+        this.rudderSprite.setPosition(0, 0);
+        this.sailSprite.setPosition(0, 0);
+        this.windSprite.setPosition(0, 0);
+        this.stage = stage;
         this.mapManager = mapManager;
         this.polygon = createBoundingPolygon();
         boat = new Vector(640, 640);
@@ -128,6 +135,29 @@ public class PlayerShip implements Ship {
 
     @Override
     public void update(OrthographicCamera camera, float delta, Environment environment) {
+        if(mapManager.isColliding(this)) {
+            System.out.println("colliding"); //, update last valid pos, return
+            Dialogs.showOptionDialog(stage, "!!COLLISION - ALERT!!"+countCollided+ "/3", "Do you want to continue?", Dialogs.OptionDialogType.YES_NO, new OptionDialogListener() {
+                @Override
+                public void yes() {
+                    sailSprite.setPosition(23, 70);
+                    rudderSprite.setPosition(23, 70);
+                    boatSprite.setPosition(23, 70);
+                    windSprite.setPosition(23, 70);
+                }
+
+                @Override
+                public void no() {
+                    Gdx.app.exit();
+                }
+
+                @Override
+                public void cancel() {
+
+                }
+            });
+        }
+        countCollided++;
         Vector f = wind.projection(sail);
         Vector v = f.projection(boatDirection);
         Vector d = Vector.multiply(lateralResistance, (Vector.minus(f, v)));
@@ -173,6 +203,7 @@ public class PlayerShip implements Ship {
     public float getY() {
         return boatSprite.getY();
     }
+
 
     @Override
     public float getAngle() {

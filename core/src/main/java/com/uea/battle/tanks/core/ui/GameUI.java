@@ -2,6 +2,7 @@ package com.uea.battle.tanks.core.ui;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.kotcrab.vis.ui.util.dialog.Dialogs;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.uea.battle.tanks.core.ship.PlayerShip;
@@ -17,11 +18,20 @@ public class GameUI {
     private static final String SHIP_X_FORMAT = "Ship X     : %s";
     private static final String SHIP_Y_FORMAT = "Ship Y     : %s";
     private static final String CARGO_FORMAT = "Collected %s of %s Cargos";
+    private static final String CARGO_WEIGHT_ON_SHIP = "Ship Weight  : %s Pounds";
 
     private VisLabel directionLabel;
     private VisLabel windSpeedLabel;
     private VisLabel shipSpeedLabel;
+
     private VisLabel cargoLabel;
+
+    public Stage getStage() {
+        return cargoWeightOnShip.getStage();
+    }
+
+    private VisLabel cargoWeightOnShip;
+
 
     public GameUI(Stage stage, PlayerShip playerShip) {
         addWindInformation(stage);
@@ -37,9 +47,12 @@ public class GameUI {
         VisTable cargoContent = new VisTable();
 
         cargoLabel = new VisLabel(String.format(CARGO_FORMAT, "0", "0"));
+        cargoWeightOnShip = new VisLabel(String.format(CARGO_WEIGHT_ON_SHIP, "1000" ));
 
         cargoContent.add(cargoLabel).row();
         cargoContent.add(cargoLabel);
+        cargoContent.add(cargoWeightOnShip).row();
+        cargoContent.add(cargoWeightOnShip);
 
         cargoRootContainer.add(cargoContent);
         stage.addActor(cargoRootContainer);
@@ -107,7 +120,17 @@ public class GameUI {
         windSpeedLabel.setText(String.format(WIND_SPEED_FORMAT, velocity));
     }
 
-    public void updateCollectedCargoCount(int totalCargos, int collectedCargos) {
+    public void updateCollectedCargoCount(int totalCargos, int collectedCargos, int cargoWeight) {
         cargoLabel.setText(String.format(CARGO_FORMAT, totalCargos, collectedCargos));
+        if(cargoWeight >= 1750)
+            cargoWeightOnShip.setText(String.format(CARGO_WEIGHT_ON_SHIP, 1000));
+        else
+            cargoWeightOnShip.setText(String.format(CARGO_WEIGHT_ON_SHIP,cargoWeight));
+
+
+        if(cargoWeight >= 1750) {
+            Dialogs.showOKDialog(cargoLabel.getStage(), "Ship cannot carry more weight", "Do not collect more cargos");
+        }
+
     }
 }

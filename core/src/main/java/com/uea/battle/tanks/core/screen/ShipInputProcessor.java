@@ -14,24 +14,24 @@ public class ShipInputProcessor implements InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
-        if (keycode == Input.Keys.UP) {
+        /*if (keycode == Input.Keys.UP) {
             playerShip.acceleratorPressed();
             return true;
         }
         if (keycode == Input.Keys.DOWN) {
             playerShip.reverseAcceleratorPressed();
             return true;
-        }
+        }*/
 
         return false;
     }
 
     @Override
     public boolean keyUp(int keycode) {
-        if (keycode == Input.Keys.UP || keycode == Input.Keys.DOWN) {
+        /*if (keycode == Input.Keys.UP || keycode == Input.Keys.DOWN) {
             playerShip.acceleratorReleased();
             return true;
-        }
+        }*/
         return false;
     }
 
