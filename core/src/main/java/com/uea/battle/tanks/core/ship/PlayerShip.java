@@ -10,12 +10,18 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.kotcrab.vis.ui.util.dialog.Dialogs;
 import com.kotcrab.vis.ui.util.dialog.OptionDialogListener;
+import com.kotcrab.vis.ui.widget.ButtonBar;
+import com.kotcrab.vis.ui.widget.VisDialog;
+import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.uea.battle.tanks.core.map.MapLoader;
-import com.uea.battle.tanks.core.screen.wind.Environment;
-import com.uea.battle.tanks.core.ui.GameUI;
+import com.uea.battle.tanks.core.screen.environment.Environment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,60 +29,33 @@ import java.util.List;
 public class PlayerShip implements Ship {
 
     private static final int VELOCITY = 1;
+    public static final float M_PI_2 = 1.57079632679489661923F;
 
-    int width = 18;
-    int height = 40;
-    float hWidth = width / 2f;
-    float hHeight = height / 2f;
-    float backWidth = hWidth / 2f;
-    float fronIndent = height / 3.2f;
-    float backIndent = height - fronIndent;
-    float backBulgeIndent = backIndent * (1 - 1 / 2.3f);
-    float frontBulgeIndent = backWidth * 1.7f;
-    float sailLength = backIndent * 0.9f;
-    float sailWidth = width * 0.1f;
-    float mastsD = sailWidth * 1.3f;
-    float backBulge = backIndent * 1.075f;
     float rudderLength = 10f;
-    float arrowSize = 10f;
 
-    private final Sprite boatSprite, rudderSprite, sailSprite, windSprite;
+    private final Sprite boatSprite, rudderSprite, sailSprite;
     private final MapLoader mapManager;
-    private final Polygon polygon;
+    private Polygon polygon;
     private final List<Runnable> spritePositionChangeListeners = new ArrayList<>();
-    private Stage stage;
-    private GameUI gameUI;
+    private final Stage stage;
     Vector boat, boatDirection, rudder, sail, wind;
     float lateralResistance = 0.0f;
     double simulationSpeed = 50;
     double stepAngleChangeRadian = 0.0872664626;
     double rudderForce = 0.01;
     double prevBoatDirection;
-    int countCollided = 1;
+    double prevShipPosX;
+    double prevShipPosY;
+    int countCollided = 0;
+    boolean isCrashed = false;
 
     public PlayerShip(Sprite boatSprite, MapLoader mapManager, Stage stage) {
         this.boatSprite = boatSprite;
         this.rudderSprite = new Sprite(new Texture("ui/rudder.png"));
         this.sailSprite = new Sprite(new Texture("ui/ship_sail.png"));
-        this.windSprite = new Sprite(new Texture("ui/Tank-Turret.png"));
-        this.boatSprite.setPosition(0, 0);
-        this.rudderSprite.setPosition(0, 0);
-        this.sailSprite.setPosition(0, 0);
-        this.windSprite.setPosition(0, 0);
         this.stage = stage;
         this.mapManager = mapManager;
-        this.polygon = createBoundingPolygon();
-        boat = new Vector(640, 640);
-        boatDirection = new Vector(0, -1);
-        boatDirection.calcAngle();
-        prevBoatDirection = boatDirection.getAngle();
-        wind = new Vector(0, 0);
-        wind.setLength(1);
-        wind.setAngle(Math.PI / 4);
-        sail = new Vector(1, 0);
-        rudder = new Vector(-rudderLength, 0);
-        rudder.calcLength();
-        rudder.calcAngle();
+        resetBoat();
     }
 
     @Override
@@ -88,8 +67,7 @@ public class PlayerShip implements Ship {
         sailSprite.setColor(Color.BLACK);
         sailSprite.draw(spriteBatch);
 
-        windSprite.setColor(Color.BLUE);
-        windSprite.draw(spriteBatch);
+        //shapeRenderer.polygon(polygon.getTransformedVertices());
     }
 
     @Override
@@ -109,55 +87,33 @@ public class PlayerShip implements Ship {
         if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
             if (rudder.getAngle() < 1.25 * Math.PI)
                 rudder.setAngle(rudder.getAngle() + stepAngleChangeRadian);
-
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
             rudder.setAngle(Math.PI);
         }
     }
-
-    private float calculateAngle(int rotationVelocity) {
-        return 0;
-    }
-
-    private void resetBoundingPolygonPosition() {
-        polygon.setPosition(boatSprite.getX(), boatSprite.getY());
-        polygon.setRotation(boatSprite.getRotation());
-    }
-
-    private float calculateDistanceX(float velocity, float angle, Environment environment) {
-        return velocity * MathUtils.cos(MathUtils.degreesToRadians * angle);
-    }
-
-    private float calculateDistanceY(float velocity, float angle, Environment environment) {
-        return velocity * MathUtils.sin(MathUtils.degreesToRadians * angle);
-    }
-
+    
     @Override
     public void update(OrthographicCamera camera, float delta, Environment environment) {
-        if(mapManager.isColliding(this)) {
+        if (mapManager.isColliding(this)) {
+            if (isCrashed) {
+                return;
+            }
+            countCollided++;
+
+            isCrashed = true;
             System.out.println("colliding"); //, update last valid pos, return
-            Dialogs.showOptionDialog(stage, "!!COLLISION - ALERT!!"+countCollided+ "/3", "Do you want to continue?", Dialogs.OptionDialogType.YES_NO, new OptionDialogListener() {
-                @Override
-                public void yes() {
-                    sailSprite.setPosition(23, 70);
-                    rudderSprite.setPosition(23, 70);
-                    boatSprite.setPosition(23, 70);
-                    windSprite.setPosition(23, 70);
-                }
 
-                @Override
-                public void no() {
-                    Gdx.app.exit();
-                }
+            System.out.println("boat X pos: " + boatSprite.getX());
+            System.out.println("boat Y pos: " + boatSprite.getY());
 
-                @Override
-                public void cancel() {
-
-                }
-            });
+            if (countCollided == 3) {
+                showGameOverDialog();
+            } else {
+                showOptionDialog();
+            }
         }
-        countCollided++;
+
         Vector f = wind.projection(sail);
         Vector v = f.projection(boatDirection);
         Vector d = Vector.multiply(lateralResistance, (Vector.minus(f, v)));
@@ -175,23 +131,103 @@ public class PlayerShip implements Ship {
         polygon.setPosition((float) boat.x, (float) boat.y);
         polygon.setRotation(boatDirection.getAngleDegree());
 
-        rudderSprite.setPosition((float) boat.x, (float) boat.y - rudderLength);
+        rudderSprite.setPosition((float) boat.x + 23, (float) boat.y - 8 - rudderLength);
         rudderSprite.setRotation((float) (rudder.getAngleDegree() + boatDirection.getAngleDegree() - MathUtils.radDeg * prevBoatDirection));
+        //rudderSprite.setRotation((float) (rudder.getAngleDegree() - boatDirection.getAngleDegree()));
 
-        sailSprite.setPosition((float) boat.x, (float) boat.y);
+        sailSprite.setPosition((float) boat.x + 20, (float) boat.y);
         sailSprite.setRotation(sail.getAngleDegree() - boatDirection.getAngleDegree());
 
         spritePositionChangeListeners.forEach(Runnable::run);
 
-        windSprite.setPosition((float) boat.x, (float) boat.y);
-        windSprite.setRotation(wind.getAngleDegree());
+        wind.getAngleDegree();
 
         prevBoatDirection = boatDirection.getAngle();
 
-        /*if (MathUtils.random(1000) == 1) {
+        if (!isCrashed) {
+            prevShipPosX = boat.x;
+            prevShipPosY = boat.y;
+        }
+
+
+        if (MathUtils.random(1000) == 1) {
             wind.setAngle(MathUtils.random(360) * MathUtils.degreesToRadians);
-        }*/
+        }
         environment.setWindRadians((float) wind.getAngle());
+    }
+
+    private void showOptionDialog() {
+        Dialogs.showOptionDialog(stage, "!!COLLISION - ALERT!!" + countCollided + "/3", "Do you want to continue?", Dialogs.OptionDialogType.YES_NO, new OptionDialogListener() {
+
+            @Override
+            public void yes() {
+                isCrashed = false;
+
+                resetBoat();
+                // todo randomise wind here
+            }
+
+            @Override
+            public void no() {
+                Gdx.app.exit();
+            }
+
+            @Override
+            public void cancel() {
+            }
+        });
+    }
+
+    private void showGameOverDialog() {
+        final VisDialog dialog = new VisDialog("Game Over") {
+            @Override
+            public void setObject(Actor actor, Object object) {
+                if (actor instanceof VisTextButton) {
+                    ((VisTextButton) object).addListener(new ChangeListener() {
+                        @Override
+                        public void changed(ChangeEvent event, Actor actor) {
+                            Gdx.app.exit();
+                        }
+                    });
+                }
+                super.setObject(actor, object);
+            }
+        };
+        dialog.closeOnEscape();
+        dialog.text("Game is over");
+        dialog.button(ButtonBar.ButtonType.OK.getText()).padBottom(3);
+        dialog.pack();
+        dialog.centerWindow();
+        dialog.addListener(new InputListener() {
+            @Override
+            public boolean keyDown(InputEvent event, int keycode) {
+                if (keycode == Input.Keys.ENTER) {
+                    dialog.fadeOut();
+                    return true;
+                }
+                return false;
+            }
+        });
+        stage.addActor(dialog.fadeIn());
+    }
+
+    private void resetBoat() {
+        this.boatSprite.setX(0);
+        this.boatSprite.setY(0);
+        this.rudderSprite.setPosition(0, 0);
+        this.sailSprite.setPosition(0, 0);
+        this.boat = new Vector(640, 640);
+        this.boatDirection = new Vector(0, -1);
+        this.boatDirection.calcAngle();
+        this.prevBoatDirection = boatDirection.getAngle();
+        this.wind = new Vector(0, 0);
+        this.wind.setLength(1);
+        this.wind.setAngle(Math.PI / 4);
+        this.sail = new Vector(1, 0);
+        this.rudder = new Vector(-rudderLength, 0);
+        this.rudder.calcLength();
+        this.rudder.calcAngle();
+        this.polygon = createBoundingPolygon();
     }
 
     @Override
@@ -233,9 +269,11 @@ public class PlayerShip implements Ship {
     }
 
     private Polygon createBoundingPolygon() {
-        //This polygon well is created by the internet.! DO NOT CHANGE IT
         Polygon polygon = new Polygon(new float[]{
-                27, 58, 12, 60, 6, 53, 4, 45, 7, 43, 8, 23, 5, 21, 5, 12, 11, 9, 26, 7, 31, 13, 37, 14, 42, 8, 60, 8, 64, 17, 57, 21, 53, 27, 54, 38, 58, 45, 64, 50, 61, 57, 43, 60, 35, 51
+                0, 0,
+                53, 0,
+                53, 30,
+                0, 30
         });
 
         polygon.setOrigin(boatSprite.getOriginX(), boatSprite.getOriginY());
@@ -243,23 +281,5 @@ public class PlayerShip implements Ship {
         polygon.setRotation(boatSprite.getRotation());
 
         return polygon;
-    }
-
-    public void acceleratorPressed() {
-        System.out.println("Accelerator pressed");
-
-    }
-
-    public void reverseAcceleratorPressed() {
-        System.out.println("decelrator pressed");
-    }
-
-    public void acceleratorReleased() {
-        System.out.println("Accelerator released");
-    }
-
-    private enum AccelerationDirection {
-        FORWARDS,
-        BACKWARDS
     }
 }

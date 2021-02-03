@@ -1,7 +1,7 @@
 package com.uea.battle.tanks.core.ship;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.uea.battle.tanks.core.screen.wind.Environment;
+import com.uea.battle.tanks.core.screen.environment.Environment;
 
 public interface Movable {
 

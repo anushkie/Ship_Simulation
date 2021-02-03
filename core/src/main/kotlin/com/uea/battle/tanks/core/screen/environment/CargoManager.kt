@@ -1,9 +1,9 @@
-package com.uea.battle.tanks.core.screen.wind
+package com.uea.battle.tanks.core.screen.environment
 
-import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.Intersector
 import com.badlogic.gdx.math.Polygon
 import com.uea.battle.tanks.core.sound.SoundPlayer
@@ -43,8 +43,8 @@ class CargoManager(private val mapHeight: Int, playerShip: PlayerShip, private v
         cargosOnMap.removeIf { it.collected }
     }
 
-    fun render(batch: SpriteBatch) {
-        cargosOnMap.forEach { it.render(batch) }
+    fun render(batch: SpriteBatch, shapeRenderer: ShapeRenderer) {
+        cargosOnMap.forEach { it.render(batch, shapeRenderer) }
     }
 
     companion object {
@@ -74,11 +74,12 @@ class Cargo(x: Int, y: Int) {
 
     init {
         sprite.setPosition(x.toFloat(), y.toFloat())
-        sprite.color = Color.BLACK
     }
 
-    fun render(batch: SpriteBatch) {
+    fun render(batch: SpriteBatch, shapeRenderer: ShapeRenderer) {
         sprite.draw(batch)
+
+        //shapeRenderer.polygon(boundingPolygon.transformedVertices)
     }
 
     fun isColliding(otherEntity: Polygon): Boolean {
@@ -87,7 +88,12 @@ class Cargo(x: Int, y: Int) {
 
     private fun createBoundingPolygon(x: Float, y: Float): Polygon {
         //This polygon well is created by the internet.! DO NOT CHANGE IT
-        val polygon = Polygon(floatArrayOf(27f, 58f, 12f, 60f, 6f, 53f, 4f, 45f, 7f, 43f, 8f, 23f, 5f, 21f, 5f, 12f, 11f, 9f, 26f, 7f, 31f, 13f, 37f, 14f, 42f, 8f, 60f, 8f, 64f, 17f, 57f, 21f, 53f, 27f, 54f, 38f, 58f, 45f, 64f, 50f, 61f, 57f, 43f, 60f, 35f, 51f))
+        val polygon = Polygon(floatArrayOf(
+                0F, 0F,
+                32F, 0F,
+                32F, 26F,
+                0F, 26F
+        ))
 
         polygon.setOrigin(sprite.originX, sprite.originY)
         polygon.setPosition(x, y)

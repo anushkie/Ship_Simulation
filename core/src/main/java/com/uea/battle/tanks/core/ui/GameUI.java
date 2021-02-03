@@ -1,17 +1,18 @@
 package com.uea.battle.tanks.core.ui;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Align;
 import com.kotcrab.vis.ui.util.dialog.Dialogs;
+import com.kotcrab.vis.ui.widget.VisImage;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.uea.battle.tanks.core.ship.PlayerShip;
 
 public class GameUI {
 
-    private static final String WIND_DIRECTION_FORMAT = "Wind Direction : %s";
-    private static final String WIND_SPEED_FORMAT = "Wind Velocity     : %s M/S";
-    private static final String SHIP_SPEED_FORMAT = "Ship Velocity     : %s M/S";
+    private static final String WIND_DIRECTION_FORMAT = "Wind Direction : %s Degrees";
     private static final String SHIP_ANGLE_FORMAT = "Ship Angle     : %s Degrees";
     private static final String RUDDER_ANGLE_FORMAT = "Rudder Angle     : %s Degrees";
     private static final String SAIL_ANGLE_FORMAT = "Sail Angle     : %s Degrees";
@@ -25,6 +26,7 @@ public class GameUI {
     private VisLabel shipSpeedLabel;
 
     private VisLabel cargoLabel;
+    private VisImage windImage;
 
     public Stage getStage() {
         return cargoWeightOnShip.getStage();
@@ -65,7 +67,6 @@ public class GameUI {
 
         VisTable shipContent = new VisTable();
 
-        shipSpeedLabel = new VisLabel(String.format(SHIP_SPEED_FORMAT, playerShip.getVelocity()));
         VisLabel shipAngleLabel = new VisLabel(String.format(SHIP_ANGLE_FORMAT, playerShip.getAngle()));
         VisLabel rudderAngleLabel = new VisLabel(String.format(RUDDER_ANGLE_FORMAT, playerShip.getRudderAngle()));
         VisLabel sailAngleLabel = new VisLabel(String.format(SAIL_ANGLE_FORMAT, playerShip.getSailAngle()));
@@ -105,19 +106,24 @@ public class GameUI {
         VisTable windContent = new VisTable();
 
         directionLabel = new VisLabel(String.format(WIND_DIRECTION_FORMAT, "None"));
-        windSpeedLabel = new VisLabel(String.format(WIND_SPEED_FORMAT, 0));
+       // windSpeedLabel = new VisLabel(String.format(WIND_SPEED_FORMAT, 0));
+        windImage = new VisImage(new Texture("ui/wind_arrow.png"));
+        windImage.setOrigin(Align.center);
 
         windContent.add(directionLabel).row();
-        windContent.add(windSpeedLabel);
+        windContent.add(windSpeedLabel).row();
+        windContent.add(windImage).row();
+
 
         windRootContainer.add(windContent);
 
         stage.addActor(windRootContainer);
     }
 
-    public void updateSpeedAndDirection(String windDirection, float velocity) {
-        directionLabel.setText(String.format(WIND_DIRECTION_FORMAT, windDirection));
-        windSpeedLabel.setText(String.format(WIND_SPEED_FORMAT, velocity));
+    public void updateSpeedAndDirection(float windDirection, float velocity) {
+        directionLabel.setText(String.format(WIND_DIRECTION_FORMAT, String.valueOf(windDirection)));
+       // windSpeedLabel.setText(String.format(WIND_SPEED_FORMAT, velocity));
+        windImage.setRotation(windDirection);
     }
 
     public void updateCollectedCargoCount(int totalCargos, int collectedCargos, int cargoWeight) {
@@ -127,10 +133,8 @@ public class GameUI {
         else
             cargoWeightOnShip.setText(String.format(CARGO_WEIGHT_ON_SHIP,cargoWeight));
 
-
         if(cargoWeight >= 1750) {
             Dialogs.showOKDialog(cargoLabel.getStage(), "Ship cannot carry more weight", "Do not collect more cargos");
         }
-
     }
 }

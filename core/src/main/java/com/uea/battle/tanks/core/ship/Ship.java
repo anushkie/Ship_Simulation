@@ -1,7 +1,7 @@
 package com.uea.battle.tanks.core.ship;
 
 import com.badlogic.gdx.math.Polygon;
-import com.uea.battle.tanks.core.screen.wind.Environment;
+import com.uea.battle.tanks.core.screen.environment.Environment;
 
 public interface Ship extends Movable, Renderable {
 

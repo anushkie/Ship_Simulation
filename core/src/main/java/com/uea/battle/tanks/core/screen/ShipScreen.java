@@ -16,16 +16,10 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.kotcrab.vis.ui.VisUI;
 import com.uea.battle.tanks.core.map.MapLoader;
-import com.uea.battle.tanks.core.screen.wind.CargoManager;
-import com.uea.battle.tanks.core.screen.wind.EnvironmentManager;
-import com.uea.battle.tanks.core.ship.Direction;
-import com.uea.battle.tanks.core.ship.EnemyShip;
+import com.uea.battle.tanks.core.screen.environment.CargoManager;
+import com.uea.battle.tanks.core.screen.environment.EnvironmentManager;
 import com.uea.battle.tanks.core.ship.PlayerShip;
-import com.uea.battle.tanks.core.ship.Ship;
 import com.uea.battle.tanks.core.ui.GameUI;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ShipScreen implements Screen {
 
@@ -76,8 +70,7 @@ public class ShipScreen implements Screen {
         this.environmentManager = new EnvironmentManager(gameUI);
         this.cargoManager = new CargoManager(mapHeight / 32, playerShip, gameUI);
 
-        ShipInputProcessor shipInputProcessor = new ShipInputProcessor(playerShip);
-        Gdx.input.setInputProcessor(new InputMultiplexer(shipInputProcessor, stage));
+        Gdx.input.setInputProcessor(new InputMultiplexer(stage));
     }
 
     @Override
@@ -102,7 +95,7 @@ public class ShipScreen implements Screen {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.setColor(Color.BLACK);
         playerShip.render(spriteBatch, shapeRenderer);
-        cargoManager.render(spriteBatch);
+        cargoManager.render(spriteBatch, shapeRenderer);
         environmentManager.render(spriteBatch, shapeRenderer);
         spriteBatch.end();
         shapeRenderer.end();
