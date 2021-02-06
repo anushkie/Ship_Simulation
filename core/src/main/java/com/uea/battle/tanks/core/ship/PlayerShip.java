@@ -92,7 +92,7 @@ public class PlayerShip implements Ship {
             rudder.setAngle(Math.PI);
         }
     }
-    
+
     @Override
     public void update(OrthographicCamera camera, float delta, Environment environment) {
         if (mapManager.isColliding(this)) {
