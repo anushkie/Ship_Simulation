@@ -1,5 +1,6 @@
 package com.uea.battle.tanks.core.screen.environment
 
+import com.badlogic.gdx.Input
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
@@ -16,7 +17,7 @@ class Wind(private var angle: Float, private var velocity: Float) : Movable, Ren
         initSpritesBasedOnOrientation()
     }
 
-    fun updateOrientation(orientation: Orientation) {
+    fun updateOrientation(orientation: Input.Orientation) {
         /*this.orientation = orientation
         initSpritesBasedOnOrientation()*/
     }

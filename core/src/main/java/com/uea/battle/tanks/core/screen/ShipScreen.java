@@ -108,43 +108,6 @@ public class ShipScreen implements Screen {
 
     private void updateCamera() {
         camera.position.set(playerShip.getX(), playerShip.getY(), 0);
-
-        /*int mapLeft = 0;
-        // The right boundary of the map (x + width)
-        int mapRight = mapWidth;
-        // The bottom boundary of the map (y)
-        int mapBottom = 0;
-        // The top boundary of the map (y + height)
-        int mapTop = mapHeight;
-        // The camera dimensions, halved
-        float cameraHalfWidth = camera.viewportWidth * .5f;
-        float cameraHalfHeight = camera.viewportHeight * .5f;
-
-        // Move camera after player as normal
-
-        float cameraLeft = camera.position.x - cameraHalfWidth;
-        float cameraRight = camera.position.x + cameraHalfWidth;
-        float cameraBottom = camera.position.y - cameraHalfHeight;
-        float cameraTop = camera.position.y + cameraHalfHeight;
-
-        // Horizontal axis
-        if (mapWidth < camera.viewportWidth) {
-            camera.position.x = mapRight / 2F;
-        } else if (cameraLeft <= mapLeft) {
-            camera.position.x = mapLeft + cameraHalfWidth;
-        } else if (cameraRight >= mapRight) {
-            camera.position.x = mapRight - cameraHalfWidth;
-        }
-
-        // Vertical axis
-        if (mapHeight < camera.viewportHeight) {
-            camera.position.y = mapTop / 2F;
-        } else if (cameraBottom <= mapBottom) {
-            camera.position.y = mapBottom + cameraHalfHeight;
-        } else if (cameraTop >= mapTop) {
-            camera.position.y = mapTop - cameraHalfHeight;
-        }*/
-
         camera.update();
     }
 

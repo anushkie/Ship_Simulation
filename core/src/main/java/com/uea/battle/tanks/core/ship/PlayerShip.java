@@ -30,9 +30,7 @@ public class PlayerShip implements Ship {
 
     private static final int VELOCITY = 1;
     public static final float M_PI_2 = 1.57079632679489661923F;
-
     float rudderLength = 10f;
-
     private final Sprite boatSprite, rudderSprite, sailSprite;
     private final MapLoader mapManager;
     private Polygon polygon;
@@ -66,8 +64,6 @@ public class PlayerShip implements Ship {
 
         sailSprite.setColor(Color.BLACK);
         sailSprite.draw(spriteBatch);
-
-        //shapeRenderer.polygon(polygon.getTransformedVertices());
     }
 
     @Override
@@ -164,7 +160,6 @@ public class PlayerShip implements Ship {
                 isCrashed = false;
 
                 resetBoat();
-                // todo randomise wind here
             }
 
             @Override

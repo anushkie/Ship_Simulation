@@ -106,7 +106,6 @@ public class GameUI {
         VisTable windContent = new VisTable();
 
         directionLabel = new VisLabel(String.format(WIND_DIRECTION_FORMAT, "None"));
-       // windSpeedLabel = new VisLabel(String.format(WIND_SPEED_FORMAT, 0));
         windImage = new VisImage(new Texture("ui/wind_arrow.png"));
         windImage.setOrigin(Align.center);
 
@@ -122,7 +121,6 @@ public class GameUI {
 
     public void updateSpeedAndDirection(float windDirection, float velocity) {
         directionLabel.setText(String.format(WIND_DIRECTION_FORMAT, String.valueOf(windDirection)));
-       // windSpeedLabel.setText(String.format(WIND_SPEED_FORMAT, velocity));
         windImage.setRotation(windDirection);
     }
 

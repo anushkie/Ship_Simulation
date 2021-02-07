@@ -35,20 +35,9 @@ class EnvironmentManager(private val gameUI: GameUI) : Environment {
             wind?.angle = value
             gameUI.updateSpeedAndDirection(value * MathUtils.radiansToDegrees, 4F)
         }
-    /*override val waterCurrentVelocity: Float
-        get() = 0F*/
 }
 
 interface Environment {
     val windVelocity: Float
     var windRadians: Float
-    //val waterCurrentVelocity: Float
-}
-
-enum class Orientation(val readableName: String) {
-    LEFT_TO_RIGHT("Left to Right"),
-    RIGHT_TO_LEFT("Right to Left"),
-    DOWN("Down"),
-    UP("Up"),
-    NONE("None")
 }

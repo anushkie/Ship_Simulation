@@ -78,8 +78,6 @@ class Cargo(x: Int, y: Int) {
 
     fun render(batch: SpriteBatch, shapeRenderer: ShapeRenderer) {
         sprite.draw(batch)
-
-        //shapeRenderer.polygon(boundingPolygon.transformedVertices)
     }
 
     fun isColliding(otherEntity: Polygon): Boolean {
@@ -87,7 +85,6 @@ class Cargo(x: Int, y: Int) {
     }
 
     private fun createBoundingPolygon(x: Float, y: Float): Polygon {
-        //This polygon well is created by the internet.! DO NOT CHANGE IT
         val polygon = Polygon(floatArrayOf(
                 0F, 0F,
                 32F, 0F,
